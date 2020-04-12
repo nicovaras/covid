@@ -36,6 +36,7 @@ class LineGraph extends React.Component {
             label: prov,
             data: data[prov],
             fill:false,
+            pointBorderWidth:5,
           });
         }
 
@@ -74,6 +75,26 @@ class LineGraph extends React.Component {
     }
 }
 
+class Summary extends React.Component {
+
+  render() {
+
+    const lastDay = this.props.lastDay;
+
+    return (
+      <div>
+      Confirmados: {lastDay['total_infections']} (+ {lastDay['total_deaths']})
+      
+      Muertes: {lastDay['new_cases']} (+ {lastDay['new_deaths']})
+
+      Actualizado al: {this.props.day}
+
+      </div>
+    );
+  }
+
+}
+
 
 class Dashboard extends React.Component {
  
@@ -88,6 +109,7 @@ class Dashboard extends React.Component {
       const response = await fetch('https://argentina-covid19-data.now.sh/api/v0/daily/');
       const data = await response.json();
       this.setState({ covid: data, isLoading: false });
+      console.log(data)
     } catch (error) {
       this.setState({ error: error.message, isLoading: false });
     }
@@ -126,6 +148,7 @@ class Dashboard extends React.Component {
 
     render() {
         const covid = this.state.covid;
+        console.log(covid)
 
         if(covid.length === 0){
           return null;
@@ -165,14 +188,15 @@ class Dashboard extends React.Component {
             dataToShow[prov] = data[prov].slice(0, this.state.maxDay);
           }
         }
-
+        
         // labels = labels.slice(0, this.state.maxDay);
 
         return (
             <div >
             <header>
-                <h1>Confirmados por dia</h1>
+                <Summary lastDay={covid[labels[labels.length - 1]]} day={labels[labels.length - 1]} />
             </header>
+                <h1>Confirmados por dia</h1>
                 {provinces}
                 <div>
                 <br />
