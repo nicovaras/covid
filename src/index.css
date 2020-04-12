@@ -7,44 +7,24 @@ ol, ul {
   padding-left: 30px;
 }
 
-.board-row:after {
-  clear: both;
-  content: "";
-  display: table;
+.header-part {
 }
 
-.status {
-  margin-bottom: 10px;
+.header-updated {
+  font-size: 12px;
 }
 
-.square {
-  background: #fff;
-  border: 1px solid #999;
-  float: left;
-  font-size: 24px;
-  font-weight: bold;
-  line-height: 34px;
-  height: 34px;
-  margin-right: -1px;
-  margin-top: -1px;
-  padding: 0;
-  text-align: center;
-  width: 34px;
+.header-title {
+  font-weight:bold;
+  font-size: 14px;
 }
 
-.square:focus {
-  outline: none;
+.header-number {
+  font-size:45px;
+  font-weight:bold;
 }
 
-.kbd-navigation .square:focus {
-  background: #ddd;
-}
-
-.game {
-  display: flex;
-  flex-direction: row;
-}
-
-.game-info {
-  margin-left: 20px;
+.header-diff{
+  font-size: 12px;
+  color: red;
 }

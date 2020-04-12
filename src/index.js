@@ -3,9 +3,13 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import Chart from "chart.js";
 import 'chartjs-plugin-colorschemes'
-import Slider, { Range } from 'rc-slider';
+import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import Tooltip from 'rc-tooltip';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import {Container, Row, Col} from 'react-bootstrap';
+
+
 const Handle = Slider.Handle;
 
 let myLineChart;
@@ -82,14 +86,25 @@ class Summary extends React.Component {
     const lastDay = this.props.lastDay;
 
     return (
-      <div>
-      Confirmados: {lastDay['total_infections']} (+ {lastDay['total_deaths']})
-      
-      Muertes: {lastDay['new_cases']} (+ {lastDay['new_deaths']})
+      <Container class="header-container" fluid> 
+        <Row className="justify-content-lg-center">
+          <Col lg="3" class='header-part'>
+            <div class='header-title'> Confirmados </div> 
+            <div class='header-number'> {lastDay['total_infections']} 
+              <span class='header-diff'> (+ {lastDay['new_cases']}) </span>
+            </div> 
+          </Col>
+        
+          <Col lg="auto" class='header-part'>
+            <div class='header-title'> Muertes </div> 
+            <div class='header-number'> {lastDay['total_deaths']} 
+              <span class='header-diff'> (+ {lastDay['new_deaths']}) </span>
+            </div> 
+          </Col>
+        </Row>
+        <Row className='header-updated justify-content-lg-center'> Actualizado al: {this.props.day} </Row>
 
-      Actualizado al: {this.props.day}
-
-      </div>
+      </Container>
     );
   }
 
@@ -192,7 +207,7 @@ class Dashboard extends React.Component {
         // labels = labels.slice(0, this.state.maxDay);
 
         return (
-            <div >
+            <Container >
             <header>
                 <Summary lastDay={covid[labels[labels.length - 1]]} day={labels[labels.length - 1]} />
             </header>
@@ -206,7 +221,7 @@ class Dashboard extends React.Component {
                 <LineGraph
                     data={dataToShow}
                     labels={labels} />            
-            </div>
+            </Container>
         )
     }
 }
