@@ -9,6 +9,7 @@ import json
 import pandas as pd
 import datetime
 from flask import Flask
+from flask_cors import CORS, cross_origin
 
 
 def covidJson():
@@ -65,8 +66,11 @@ def covidJson():
 
 
 app = Flask(__name__)
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 @app.route('/')
+@cross_origin()
 def example():
    return covidJson()
 
