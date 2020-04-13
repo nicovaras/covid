@@ -21,6 +21,7 @@ import { mainListItems, secondaryListItems } from './listItems';
 import CasesChart from './CasesChart';
 import Deposits from './Deposits';
 import Orders from './Orders';
+import Summary from './Summary';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Switch from '@material-ui/core/Switch';
@@ -213,11 +214,6 @@ class Dashboard extends React.Component {
             <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
               Dashboard
             </Typography>
-            <IconButton color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
           </Toolbar>
         </AppBar>
         <Drawer
@@ -240,6 +236,13 @@ class Dashboard extends React.Component {
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
           <Container maxWidth="lg" className={classes.container}>
+            <Grid container spacing={3}>
+              <Grid item xs={12} md={8} lg={12}>
+                <Paper>
+                  <Summary lastDay={covid['totals'][days[days.length - 1]]} day={days[days.length - 1]} />
+                </Paper>
+              </Grid>
+            </Grid>
             <Grid container spacing={3}>
               {/* Chart */}
               <Grid item xs={12} md={8} lg={9}>
