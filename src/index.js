@@ -2,8 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
-import Chart from "chart.js";
-import 'chartjs-plugin-colorschemes'
 
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
@@ -21,68 +19,6 @@ let myLineChart;
 
 
 
-class LineGraph extends React.Component {
-    chartRef = React.createRef();
-
-    componentDidMount() {
-        this.buildChart();
-    }
-
-    componentDidUpdate() {
-        this.buildChart();
-    }
-
-    buildChart = () => {
-        const myChartRef = this.chartRef.current.getContext("2d");
-        const { data, labels } = this.props;
-
-        if (typeof myLineChart !== "undefined") myLineChart.destroy();
-
-
-        let datasets= [];
-        for(let prov in data){
-          datasets.push({
-            label: prov,
-            data: data[prov],
-            fill:false,
-            pointBorderWidth:5,
-          });
-        }
-
-        myLineChart = new Chart(myChartRef, {
-            type: "line",
-            data: {
-                //Bring in data
-                labels: labels,
-                datasets: datasets,
-            },
-            options: {
-              elements: {line: {tension: 0}},
-              animation:{duration:0},
-              scales: {
-                yAxes: [{
-                    ticks: {
-                        min: 0,
-                        max: 800
-                    }
-                }],
-         }
-
-            }
-        });
-    }
-
-    render() {
-        return (
-            <div>
-                <canvas
-                    id="myChart"
-                    ref={this.chartRef}
-                />
-            </div>
-        )
-    }
-}
 
 class Summary extends React.Component {
 
