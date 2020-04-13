@@ -23,6 +23,7 @@ def covidJson():
         texts = [td.text.strip() for td in tds]
         texts = [t.replace("—", "0") for t in texts]
         texts= [re.sub(r'\[.*', '', t) for t in texts]
+        texts= [(t if t else '0') for t in texts]
         data.append([tr.find_all('th')[0].text.strip()] + texts)
     data = data[3:-1]
     cols = ["date","CABA","Buenos Aires","Catamarca","Chaco", "Chubut","Cordoba","Corrientes","Entre Rios","Formosa","Jujuy", "La Pampa", "La Rioja", "Mendoza", "Misiones", "Neuquen", "Rio Negro", "Salta","San Juan", "San Luis", "Santa Cruz", "Santa Fe", "Santiago del Estero", "Tierra del Fuego", "Tucuman", 'total cases', 'total deaths', 'new cases', 'new deaths']
