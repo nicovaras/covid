@@ -23,6 +23,9 @@ import Deposits from './Deposits';
 import Orders from './Orders';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import Switch from '@material-ui/core/Switch';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormGroup from '@material-ui/core/FormGroup';
 
 function Copyright() {
   return (
@@ -175,7 +178,15 @@ class Dashboard extends React.Component {
     let provinces = [];
     for(let i in covid['provinces']){
       let province = covid['provinces'][i];
-      provinces.push(<Button key={province} onClick={() => this.selectProvince(province)} >{province}</Button>);
+      provinces.push(
+         <FormControlLabel
+          control={<Switch color='primary' 
+                           onChange={() => this.selectProvince(province)}
+                           checked={this.state.provincesSelected.includes(province)} >
+                   </Switch>}
+          label={province}
+          />
+        );
     }
 
     let dataToShow = {};
@@ -240,7 +251,9 @@ class Dashboard extends React.Component {
               {/* Recent Deposits */}
               <Grid item xs={12} md={4} lg={3}>
                 <Paper className={fixedHeightPaper}>
-                  {provinces}
+                  <FormGroup>
+                    {provinces}
+                  </FormGroup>
                 </Paper>
               </Grid>
               {/* Recent Orders 
