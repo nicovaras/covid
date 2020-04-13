@@ -90,7 +90,7 @@ class Summary extends React.Component {
         <Row className="justify-content-lg-center">
           <Col lg="3" class='header-part'>
             <div class='header-title'> Confirmados </div> 
-            <div class='header-number'> {lastDay['total_infections']} 
+            <div class='header-number'> {lastDay['total_cases']} 
               <span class='header-diff'> (+ {lastDay['new_cases']}) </span>
             </div> 
           </Col>
@@ -116,15 +116,14 @@ class Dashboard extends React.Component {
 
     constructor(props) {
       super(props);
-      this.state = { covid: [], isLoading: true, error: null, provincesSelected: ['caba'], maxDay: 50 };
+      this.state = { covid: [], isLoading: true, error: null, provincesSelected: ['CABA'], maxDay: 50 };
     }
   
   async componentDidMount() {
     try {
-      const response = await fetch('https://argentina-covid19-data.now.sh/api/v0/daily/');
+      const response = await fetch('https://covid.null.com.ar/');
       const data = await response.json();
       this.setState({ covid: data, isLoading: false });
-      console.log(data)
     } catch (error) {
       this.setState({ error: error.message, isLoading: false });
     }
@@ -163,37 +162,32 @@ class Dashboard extends React.Component {
 
     render() {
         const covid = this.state.covid;
-        console.log(covid)
 
         if(covid.length === 0){
           return null;
         }
 
-        let labels = [];
-        for(let key in covid){
-           labels.push(key);
+        let days = [];
+        for(let day in covid['totals']){
+           days.push(day);
         }
 
-        const totalDays = labels.length;
+        const totalDays = days.length;
 
         let data = {};
-        for(let prov in covid[labels[0]]){
+        for(let prov in covid['data']){
           data[prov] = [];
         }
 
-        for(let day in covid){
-          for(let prov in covid[day]){
-            data[prov].push(covid[day][prov]['confirmed']);
+        for(let prov in covid['data']){
+          for(let day in covid['data'][prov]){
+            data[prov].push(covid['data'][prov][day]['total_cases']);
           }
         }
 
-        delete data['total_infections'];
-        delete data['total_deaths'];
-        delete data['new_cases'];
-        delete data['new_deaths'];  
-
         let provinces = [];
-        for(let province in data){
+        for(let i in covid['provinces']){
+          let province = covid['provinces'][i];
           provinces.push(<button key={province} onClick={() => this.selectProvince(province)} >{province}</button>);
         }
 
@@ -205,11 +199,12 @@ class Dashboard extends React.Component {
         }
         
         // labels = labels.slice(0, this.state.maxDay);
-
+        console.log(covid['totals'], covid['totals'][days[days.length - 1]])
+        console.log(provinces)
         return (
             <Container >
             <header>
-                <Summary lastDay={covid[labels[labels.length - 1]]} day={labels[labels.length - 1]} />
+                <Summary lastDay={covid['totals'][days[days.length - 1]]} day={days[days.length - 1]} />
             </header>
                 <h1>Confirmados por dia</h1>
                 {provinces}
@@ -220,7 +215,7 @@ class Dashboard extends React.Component {
                 </div>
                 <LineGraph
                     data={dataToShow}
-                    labels={labels} />            
+                    labels={days} />            
             </Container>
         )
     }
