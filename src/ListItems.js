@@ -23,10 +23,18 @@ class ListItems extends React.Component {
         </ListItem>
         <ListItem button onClick={() => this.props.callback('table')}>
           <ListItemIcon>
-            <ShoppingCartIcon />
+            <DashboardIcon />
           </ListItemIcon>
           <ListItemText primary="Datos por Provincia" />
         </ListItem>
+        <ListItem button onClick={() => this.props.callback('million')}>
+          <ListItemIcon>
+            <DashboardIcon />
+          </ListItemIcon>
+          <ListItemText primary="Datos por Millon" />
+        </ListItem>
+
+
       </div>  
     );
   }

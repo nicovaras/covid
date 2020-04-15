@@ -19,6 +19,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import Deposits from './Deposits';
 import Orders from './Orders';
+import PerMillion from './PerMillion';
 import ListItems from './ListItems';
 import MainView from './MainView';
 import FatalitiesTable from './FatalitiesTable';
@@ -126,22 +127,50 @@ return {
 class Dashboard extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { covid: [], isLoading: true, error: null, componentToShow:'main' };
+    this.state = { covid: [], countries: {}, isLoading: true, error: null, componentToShow:'million' };
     this.callback = this.callback.bind(this)
   }
 
   async componentDidMount() {
     try {
-      const response = await fetch('https://covid.null.com.ar/');
-      const data = await response.json();
+      let response = await fetch('https://covid.null.com.ar/');
+      let data = await response.json();
       this.setState({ covid: data, isLoading: false });
+
+      let countries = {};
+
+      response = await fetch('https://api.covid19api.com/country/Argentina');
+      data = await response.json();
+      countries['argentina'] = data;
+
+      response = await fetch('https://api.covid19api.com/country/Brazil');
+      data = await response.json();
+      countries['brazil'] = data;
+
+      response = await fetch('https://api.covid19api.com/country/Bolivia');
+      data = await response.json();
+      countries['bolivia'] = data;
+
+      response = await fetch('https://api.covid19api.com/country/Chile');
+      data = await response.json();
+      countries['chile'] = data;
+
+      response = await fetch('https://api.covid19api.com/country/Paraguay');
+      data = await response.json();
+      countries['paraguay'] = data;
+
+      response = await fetch('https://api.covid19api.com/country/Uruguay');
+      data = await response.json();
+      countries['uruguay'] = data;
+
+      this.setState({countries: countries});
+
     } catch (error) {
       this.setState({ error: error.message, isLoading: false });
     }
   }
 
   callback(component) {
-    console.log(this)
     this.setState({componentToShow: component});
   }
     
@@ -198,6 +227,9 @@ class Dashboard extends React.Component {
             :
             this.state.componentToShow === 'table' ?
             <FatalitiesTable data={covid['data']}/>
+            :
+            this.state.componentToShow === 'million' ?
+            <PerMillion data={this.state.countries}/>
             :
             <div />
            }
