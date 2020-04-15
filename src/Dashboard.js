@@ -17,16 +17,16 @@ import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import { mainListItems, secondaryListItems } from './listItems';
-import CasesChart from './CasesChart';
 import Deposits from './Deposits';
 import Orders from './Orders';
-import Summary from './Summary';
+import ListItems from './ListItems';
+import MainView from './MainView';
+import FatalitiesTable from './FatalitiesTable';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormGroup from '@material-ui/core/FormGroup';
+
 
 function Copyright() {
   return (
@@ -123,11 +123,11 @@ return {
 }};
 
 
-
 class Dashboard extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { covid: [], isLoading: true, error: null, provincesSelected: ['CABA'], maxDay: 50 };
+    this.state = { covid: [], isLoading: true, error: null, componentToShow:'main' };
+    this.callback = this.callback.bind(this)
   }
 
   async componentDidMount() {
@@ -139,64 +139,19 @@ class Dashboard extends React.Component {
       this.setState({ error: error.message, isLoading: false });
     }
   }
-    
-    selectProvince(province){
-      if (this.state.provincesSelected.includes(province)){
-        this.setState({provincesSelected: this.state.provincesSelected.filter((x) => {return x !== province})});
-      } else{
-        this.setState({provincesSelected: this.state.provincesSelected.concat(province)});
-      }
-    }
+
+  callback(component) {
+    console.log(this)
+    this.setState({componentToShow: component});
+  }
     
   render(){
     const { classes } = this.props;
-    const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
-
     const covid = this.state.covid;
 
     if(covid.length === 0){
       return null;
     }
-
-    let days = [];
-    for(let day in covid['totals']){
-       days.push(day);
-    }
-
-    const totalDays = days.length;
-
-    let data = {};
-    for(let prov in covid['data']){
-      data[prov] = [];
-    }
-
-    for(let prov in covid['data']){
-      for(let day in covid['data'][prov]){
-        data[prov].push(covid['data'][prov][day]['total_cases']);
-      }
-    }
-
-    let provinces = [];
-    for(let i in covid['provinces']){
-      let province = covid['provinces'][i];
-      provinces.push(
-         <FormControlLabel
-          control={<Switch color='primary' 
-                           onChange={() => this.selectProvince(province)}
-                           checked={this.state.provincesSelected.includes(province)} >
-                   </Switch>}
-          label={province}
-          />
-        );
-    }
-
-    let dataToShow = {};
-    for(let prov in data){
-      if(this.state.provincesSelected.includes(prov)){
-        dataToShow[prov] = data[prov].slice(0, this.state.maxDay);
-      }
-    }
-
 
     return (
       <div className={classes.root}>
@@ -229,43 +184,24 @@ class Dashboard extends React.Component {
             </IconButton>
           </div>
           <Divider />
-          <List>{mainListItems}</List>
-          <Divider />
-          <List>{secondaryListItems}</List>
+          <List><ListItems callback={this.callback} /></List>
         </Drawer>
+
+
+
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
           <Container maxWidth="lg" className={classes.container}>
-            <Grid container spacing={3}>
-              <Grid item xs={12} md={8} lg={12}>
-                <Paper>
-                  <Summary lastDay={covid['totals'][days[days.length - 1]]} day={days[days.length - 1]} />
-                </Paper>
-              </Grid>
-            </Grid>
-            <Grid container spacing={3}>
-              {/* Chart */}
-              <Grid item xs={12} md={8} lg={9}>
-                <Paper className={fixedHeightPaper}>
-                  <CasesChart  data={dataToShow}
-                    labels={days} />
-                </Paper>
-              </Grid>
-              {/* Recent Deposits */}
-              <Grid item xs={12} md={4} lg={3}>
-                <Paper className={fixedHeightPaper}>
-                  <FormGroup>
-                    {provinces}
-                  </FormGroup>
-                </Paper>
-              </Grid>
-              {/* Recent Orders 
-              <Grid item xs={12}>
-                <Paper className={classes.paper}>
-                  <Orders />
-                </Paper>
-              </Grid> */}
-            </Grid>
+           {
+            this.state.componentToShow === 'main' ?
+            <MainView covid={covid} classes={classes}/>
+            :
+            this.state.componentToShow === 'table' ?
+            <FatalitiesTable data={covid['data']}/>
+            :
+            <div />
+           }
+
             <Box pt={4}>
               <Copyright />
             </Box>
@@ -277,3 +213,4 @@ class Dashboard extends React.Component {
 }
 
 export default withStyles(styles)(Dashboard);
+

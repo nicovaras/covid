@@ -13,20 +13,24 @@ import AssignmentIcon from '@material-ui/icons/Assignment';
 class ListItems extends React.Component {
 
   render(){
-    <div>
-      <ListItem button onClick={this.props.callback('a')}>
-        <ListItemIcon>
-          <DashboardIcon />
-        </ListItemIcon>
-        <ListItemText primary="Casos por dia" />
-      </ListItem>
-      <ListItem button onClick={this.props.callback('b')}>
-        <ListItemIcon>
-          <ShoppingCartIcon />
-        </ListItemIcon>
-        <ListItemText primary="Datos por Provincia" />
-      </ListItem>
-    </div>  
+    return(
+      <div>
+        <ListItem button onClick={() => this.props.callback('main')}>
+          <ListItemIcon>
+            <DashboardIcon />
+          </ListItemIcon>
+          <ListItemText primary="Casos por dia" />
+        </ListItem>
+        <ListItem button onClick={() => this.props.callback('table')}>
+          <ListItemIcon>
+            <ShoppingCartIcon />
+          </ListItemIcon>
+          <ListItemText primary="Datos por Provincia" />
+        </ListItem>
+      </div>  
+    );
   }
   
 };
+
+export default ListItems;

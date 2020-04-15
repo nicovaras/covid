@@ -9,19 +9,19 @@ class Summary extends React.Component {
     const lastDay = this.props.lastDay;
 
     return (
-      <Container class="header-container" > 
+      <Container className="header-container" > 
         <Row className="justify-content-lg-center">
-          <Col lg="3" class='header-part'>
-            <div class='header-title'> Confirmados </div> 
-            <div class='header-number'> {lastDay['total_cases']} 
-              <span class='header-diff'> (+ {lastDay['new_cases']}) </span>
+          <Col lg="3" className='header-part'>
+            <div className='header-title'> Confirmados </div> 
+            <div className='header-number'> {lastDay['total_cases']} 
+              <span className='header-diff'> (+ {lastDay['new_cases']}) </span>
             </div> 
           </Col>
         
-          <Col lg="auto" class='header-part'>
-            <div class='header-title'> Muertes </div> 
-            <div class='header-number'> {lastDay['total_deaths']} 
-              <span class='header-diff'> (+ {lastDay['new_deaths']}) </span>
+          <Col lg="auto" className='header-part'>
+            <div className='header-title'> Muertes </div> 
+            <div className='header-number'> {lastDay['total_deaths']} 
+              <span className='header-diff'> (+ {lastDay['new_deaths']}) </span>
             </div> 
           </Col>
          <div>Actualizado al: {this.props.day} </div>

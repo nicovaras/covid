@@ -27,3 +27,16 @@ ol, ul {
 .header-diff{
   font-size: 12px;
 }
+
+.minibar {
+  width:200px;
+  height:30px;
+}
+
+.minicanvas{
+  /*margin:0;*/
+  /*padding:0;*/
+  /*display:inline !important;*/
+  height:30px !important;
+  width:200px !important;
+}
