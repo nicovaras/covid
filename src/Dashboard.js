@@ -232,7 +232,7 @@ class Dashboard extends React.Component {
             <PerMillion data={this.state.countries}/>
             :
             this.state.componentToShow === 'maps' ?
-            <Maps data={this.state.countries}/>
+            <Maps data={covid['data']}/>
             :
             <div />
            }
