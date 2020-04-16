@@ -18,7 +18,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import Deposits from './Deposits';
-import Orders from './Orders';
+import Maps from './Maps';
 import PerMillion from './PerMillion';
 import ListItems from './ListItems';
 import MainView from './MainView';
@@ -127,7 +127,7 @@ return {
 class Dashboard extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { covid: [], countries: {}, isLoading: true, error: null, componentToShow:'million' };
+    this.state = { covid: [], countries: {}, isLoading: true, error: null, componentToShow:'maps' };
     this.callback = this.callback.bind(this)
   }
 
@@ -230,6 +230,9 @@ class Dashboard extends React.Component {
             :
             this.state.componentToShow === 'million' ?
             <PerMillion data={this.state.countries}/>
+            :
+            this.state.componentToShow === 'maps' ?
+            <Maps data={this.state.countries}/>
             :
             <div />
            }

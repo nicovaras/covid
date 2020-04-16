@@ -33,7 +33,12 @@ class ListItems extends React.Component {
           </ListItemIcon>
           <ListItemText primary="Datos por Millon" />
         </ListItem>
-
+        <ListItem button onClick={() => this.props.callback('maps')}>
+          <ListItemIcon>
+            <DashboardIcon />
+          </ListItemIcon>
+          <ListItemText primary="Mapas" />
+        </ListItem>
 
       </div>  
     );
