@@ -16,7 +16,8 @@ class ProvinceLine extends React.Component {
             datasets: [{
                 data: values,
                 fill:false,
-                pointStyle:'line'
+                borderColor:'#3f51b5',
+                pointRadius:0
             }],
         };
 
