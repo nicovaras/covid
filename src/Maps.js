@@ -5,6 +5,30 @@ import ProvinceMapLegend from './ProvinceMapLegend'
 import ProvinceLine from './ProvinceLine'
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
+import bsasImg from './img/BuenosAires.png';
+import cabaImg from './img/CABA.png';
+import catamarcaImg from './img/Catamarca.png';
+import chacoImg from './img/Chaco.png';
+import chubutImg from './img/Chubut.png';
+import cordobaImg from './img/Cordoba.png';
+import corrientesImg from './img/Corrientes.png';
+import entreRiosImg from './img/EntreRios.png';
+import formosaImg from './img/Formosa.png';
+import jujuyImg from './img/Jujuy.png';
+import laPampaImg from './img/LaPampa.png';
+import laRiojaImg from './img/LaRioja.png';
+import mendozaImg from './img/Mendoza.png';
+import misionesImg from './img/Misiones.png';
+import neuquenImg from './img/Neuquen.png';
+import rioNegroImg from './img/RioNegro.png';
+import saltaImg from './img/Salta.png';
+import sanJuanImg from './img/SanJuan.png';
+import sanLuisImg from './img/SanLuis.png';
+import santaCruzImg from './img/SantaCruz.png';
+import santaFeImg from './img/SantaFe.png';
+import santiagoImg from './img/SantiagodelEstero.png';
+import tierraImg from './img/TierradelFuego.png';
+import tucumanImg from './img/Tucuman.png';
 
 let provinciasGeo = require('./provincias.json');
 
@@ -35,6 +59,33 @@ const provMap = {
     "Tucumán":"Tucuman"
 }
 
+const provImg = {
+    "Buenos Aires": bsasImg,
+    "Formosa": formosaImg,
+    "Salta": saltaImg,
+    "CABA": cabaImg,
+    "Jujuy": jujuyImg,
+    "San Juan": sanJuanImg,
+    "Catamarca": catamarcaImg,
+    "La Pampa": laPampaImg,
+    "San Luis": sanLuisImg,
+    "Chaco": chacoImg,
+    "La Rioja": laRiojaImg,
+    "Santa Cruz": santaCruzImg,
+    "Chubut": chubutImg,
+    "Mendoza": mendozaImg,
+    "Santa Fe": santaFeImg,
+    "Cordoba": cordobaImg,
+    "Misiones": misionesImg,
+    "Santiago del Estero": santiagoImg,
+    "Corrientes": corrientesImg,
+    "Neuquen": neuquenImg,
+    "Tierra del Fuego": tierraImg,
+    "Entre Rios": entreRiosImg,
+    "Rio Negro": rioNegroImg,
+    "Tucuman":tucumanImg
+}
+
 class Maps extends React.Component {
 
 
@@ -51,13 +102,38 @@ class Maps extends React.Component {
                d > 10   ? '#FED976' :
                           '#FFEDA0'
         }
+
         return {
             fillColor: getColor(feature.properties['total_cases']),
             weight: 2,
             opacity: 1,
-            color: 'white',
-            fillOpacity: 0.7
+            color: 'gray',
+            // color: 'white',
+            fillOpacity: 0.5
         }
+
+        // let nombre = feature['properties']['nombre']
+        // if (provMap[nombre] === 'Tucuman'){
+        //     return {
+        //         // fillColor: getColor(feature.properties['total_cases']),
+        //         fillColor: 'lightgray',
+        //         weight: 5,
+        //         opacity: 1,
+        //         color: 'gray',
+        //         // color: 'white',
+        //         fillOpacity: 0.5
+        //     }
+        // } else {
+        //     return {
+        //         // fillColor: getColor(feature.properties['total_cases']),
+        //         weight: 1,
+        //         opacity: 0,
+        //         // color: 'gray',
+        //         color: 'lightgray',
+        //         fillOpacity: 0.1
+        //     }
+
+        // }
     }
     
   onEachFeature(feature,layer){
@@ -65,14 +141,18 @@ class Maps extends React.Component {
                       '<div>' + feature.properties.total_cases + '</div>');
   }
 
-  provinceLinePlots(covid){
+  provinceLinePlots(covid, lastDay){
+
+    const maxValue = covid['CABA'][lastDay]['total_cases'];
+
+
     return (
-        <Grid item lg={9}>
+        <Grid item lg={9} >
             <Grid container spacing = {3}>
                 {Object.keys(covid).map((province) =>(
-                    <Grid item lg={4}>
-                        <Paper>
-                                <ProvinceLine data={covid} province={province}/>
+                    <Grid key={"line-"+province} item lg={4}>
+                        <Paper style={{backgroundImage: "url(" + provImg[province] + ")"}}>
+                                <ProvinceLine data={covid} province={province} maxValue={maxValue}/>
                         </Paper>
                     </Grid>
                 ))}
@@ -101,6 +181,7 @@ class Maps extends React.Component {
         
     }
 
+
     const position = [-40, -64];
     const mapboxAccessToken = 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw';
 
@@ -109,7 +190,7 @@ class Maps extends React.Component {
         <Grid container spacing={3}>
             <Grid item lg={3}>
                 <Paper>
-                  <Map ref="map" center={position} zoom={4} style={{height : '550px', 'width': '290px'}}>
+                  <Map ref="map" center={position} zoom={4} style={{ height : '550px', 'width': '290px'}}>
                     <TileLayer
                       id= 'mapbox/light-v9'
                       attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -120,7 +201,7 @@ class Maps extends React.Component {
                   </Map>
                 </Paper>
             </Grid>
-            {this.provinceLinePlots(covid)}
+            {this.provinceLinePlots(covid, lastDay)}
             
         </Grid>
         </React.Fragment>

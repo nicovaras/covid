@@ -36,7 +36,8 @@ class ProvinceLine extends React.Component {
                                 }],
                                 yAxes: [{
                                     ticks: {
-                                        display:false
+                                        display:false,
+                                        max: this.props.maxValue
                                     },
                                     gridLines: {
                                         display: false
