@@ -11,21 +11,30 @@ class Summary extends React.Component {
     return (
       <Container className="header-container" > 
         <Row className="justify-content-lg-center">
-          <Col lg="3" className='header-part'>
-            <div className='header-title'> Confirmados </div> 
-            <div className='header-number'> {lastDay['total_cases']} 
-              <span className='header-diff'> (+ {lastDay['new_cases']}) </span>
+        <Col lg='6'></Col>
+          <Col lg="auto" className='header-part'>
+            <div>
+              <span className='header-title'>Casos </span>  
+              <span className='header-number'> {lastDay['total_cases']} </span>
+              <span className='header-diff'> (+{lastDay['new_cases']}) </span>  
             </div> 
+            
           </Col>
         
           <Col lg="auto" className='header-part'>
-            <div className='header-title'> Muertes </div> 
-            <div className='header-number'> {lastDay['total_deaths']} 
-              <span className='header-diff'> (+ {lastDay['new_deaths']}) </span>
+            <div> 
+              <span className='header-title'>Muertes </span> 
+              <span className='header-number'> {lastDay['total_deaths']} </span>
+              <span className='header-diff'> (+{lastDay['new_deaths']}) </span>
             </div> 
           </Col>
-         <div>Actualizado al: {this.props.day} </div>
+          <Col lg="auto">
+             <div className='header-updated'>
+              Actualizado {this.props.day} 
+             </div>
+             </Col>
          </Row>
+
       </Container>
     );
   }

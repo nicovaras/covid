@@ -29,6 +29,7 @@ import santaFeImg from './img/SantaFe.png';
 import santiagoImg from './img/SantiagodelEstero.png';
 import tierraImg from './img/TierradelFuego.png';
 import tucumanImg from './img/Tucuman.png';
+import Title from './Title';
 
 let provinciasGeo = require('./provincias.json');
 
@@ -147,7 +148,9 @@ class Maps extends React.Component {
 
 
     return (
+
         <Grid item lg={9} >
+        <Title> Casos Confirmados Por Provincia </Title>
             <Grid container spacing = {3}>
                 {Object.keys(covid).map((province) =>(
                     <Grid key={"line-"+province} item lg={4}>
@@ -187,8 +190,11 @@ class Maps extends React.Component {
 
     return (
         <React.Fragment>
+        
         <Grid container spacing={3}>
+
             <Grid item lg={3}>
+            <Title> Casos Confirmados En El Pais </Title>
                 <Paper>
                   <Map ref="map" center={position} zoom={4} style={{ height : '550px', 'width': '290px'}}>
                     <TileLayer
@@ -201,6 +207,7 @@ class Maps extends React.Component {
                   </Map>
                 </Paper>
             </Grid>
+
             {this.provinceLinePlots(covid, lastDay)}
             
         </Grid>

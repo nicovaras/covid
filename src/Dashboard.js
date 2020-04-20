@@ -27,7 +27,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormGroup from '@material-ui/core/FormGroup';
-
+import Summary from './Summary';
 
 function Copyright() {
   return (
@@ -127,7 +127,8 @@ return {
 class Dashboard extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { covid: [], countries: {}, isLoading: true, error: null, componentToShow:'maps' };
+    this.state = { covid: [], countries: {}, isLoading: true, error: null, 
+    componentToShow:'main' };
     this.callback = this.callback.bind(this)
   }
 
@@ -182,6 +183,11 @@ class Dashboard extends React.Component {
       return null;
     }
 
+    let days = [];
+    for(let day in covid['totals']){
+       days.push(day);
+    }
+
     return (
       <div className={classes.root}>
         <CssBaseline />
@@ -196,8 +202,10 @@ class Dashboard extends React.Component {
               <MenuIcon />
             </IconButton>
             <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-              Dashboard
+              COVID-19 Argentina
             </Typography>
+            <Summary lastDay={covid['totals'][days[days.length - 1]]} day={days[days.length - 1]}/>
+
           </Toolbar>
         </AppBar>
         <Drawer
@@ -222,6 +230,9 @@ class Dashboard extends React.Component {
           <div className={classes.appBarSpacer} />
           <Container maxWidth="lg" className={classes.container}>
            {
+            this.state.componentToShow === 'maps' ?
+            <Maps data={covid['data']}/>
+            :
             this.state.componentToShow === 'main' ?
             <MainView covid={covid} classes={classes}/>
             :
@@ -230,9 +241,6 @@ class Dashboard extends React.Component {
             :
             this.state.componentToShow === 'million' ?
             <PerMillion data={this.state.countries}/>
-            :
-            this.state.componentToShow === 'maps' ?
-            <Maps data={covid['data']}/>
             :
             <div />
            }

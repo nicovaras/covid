@@ -15,6 +15,12 @@ class ListItems extends React.Component {
   render(){
     return(
       <div>
+        <ListItem button onClick={() => this.props.callback('maps')}>
+          <ListItemIcon>
+            <DashboardIcon />
+          </ListItemIcon>
+          <ListItemText primary="Mapas" />
+        </ListItem>
         <ListItem button onClick={() => this.props.callback('main')}>
           <ListItemIcon>
             <DashboardIcon />
@@ -32,12 +38,6 @@ class ListItems extends React.Component {
             <DashboardIcon />
           </ListItemIcon>
           <ListItemText primary="Datos por Millon" />
-        </ListItem>
-        <ListItem button onClick={() => this.props.callback('maps')}>
-          <ListItemIcon>
-            <DashboardIcon />
-          </ListItemIcon>
-          <ListItemText primary="Mapas" />
         </ListItem>
 
       </div>  

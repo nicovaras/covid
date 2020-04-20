@@ -7,24 +7,30 @@ ol, ul {
   padding-left: 30px;
 }
 
-.header-part {
+.header-container {
+  padding:10px;
 }
 
 .header-updated {
   font-size: 12px;
+  position: absolute;
+  bottom: 0px;
 }
 
 .header-title {
-  font-weight:bold;
+  /*font-weight:bold;*/
   font-size: 14px;
 }
 
 .header-number {
+  line-height: 100%;  
   font-size:36px;
   font-weight:bold;
+  margin-left:10px;
 }
 
 .header-diff{
+  font-weight:bold;
   font-size: 12px;
 }
 
@@ -67,4 +73,10 @@ ol, ul {
   float: left;
   margin-right: 8px;
   opacity: 0.7;
+}
+
+.header-updated{
+  text-align: right;
+  display: inherit;  
+  font-size: 11px;
 }

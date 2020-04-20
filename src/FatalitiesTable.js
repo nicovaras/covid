@@ -8,6 +8,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 import CasesMiniBar from './CasesMiniBar'
+import Title from './Title';
 
 const useStyles = makeStyles({
   table: {
@@ -52,6 +53,7 @@ export default function FatalitiesTable(props) {
 
   return (
     <div> 
+    <Title> Vision General Por Provincia </Title>
     <TableContainer component={Paper}>
       <Table className={classes.table} size="small" aria-label="a dense table">
         <TableHead>

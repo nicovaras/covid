@@ -102,7 +102,7 @@ export default class CasesChart extends React.Component {
     render() {
         return (
           <React.Fragment>
-            <Title> Confirmados por dia </Title>
+            <Title> Casos Confirmados Por Dia </Title>
             <div>
               <canvas 
                   id="myChart"

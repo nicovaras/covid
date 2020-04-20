@@ -69,7 +69,7 @@ class MainView extends React.Component{
         return (
             <React.Fragment>
                 <Grid container spacing={3}>
-                  <Grid item xs={12} md={8} lg={12}>
+                  <Grid item xs={12} md={8} lg={6}>
                     <Paper>
                       <Summary lastDay={covid['totals'][days[days.length - 1]]} day={days[days.length - 1]} />
                     </Paper>

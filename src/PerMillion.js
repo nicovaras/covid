@@ -10,6 +10,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import Title from './Title';
 
 class PerMillion extends React.Component {
 
@@ -72,7 +73,11 @@ class PerMillion extends React.Component {
 
 
         return (
+            <React.Fragment>
+            <Title> Datos Por Millon De Habitantes</Title>
+
             <Grid container spacing={3}>
+
                 <Grid item xs={12} md={8} lg={9}>
                     <Paper>
                         <Line data={data}/>
@@ -114,6 +119,7 @@ class PerMillion extends React.Component {
                     </TableContainer>
                 </Grid>
             </Grid>
+            </React.Fragment>
         );
 
     }
