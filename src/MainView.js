@@ -66,6 +66,17 @@ class MainView extends React.Component{
             dataToShow[prov] = data[prov].slice(0, this.state.maxDay);
           }
         }
+
+        let maxValue;
+        if( data['CABA'][data['CABA'].length -1] > 0){
+            maxValue = data['CABA'][data['CABA'].length -1];
+
+        } else {
+            maxValue = data['CABA'][data['CABA'].length -2];
+
+        }
+
+
         return (
             <React.Fragment>
   
@@ -73,7 +84,7 @@ class MainView extends React.Component{
                   <Grid item xs={12} md={8} lg={9}>
                     <Paper className={fixedHeightPaper}>
                       <CasesChart  data={dataToShow}
-                        labels={days} />
+                        labels={days} maxValue={maxValue}/>
                     </Paper>
                   </Grid>
                   <Grid item xs={12} md={4} lg={3}>

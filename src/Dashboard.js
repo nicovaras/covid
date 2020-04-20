@@ -128,7 +128,7 @@ class Dashboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = { covid: [], countries: {}, isLoading: true, error: null, 
-    componentToShow:'maps' };
+    componentToShow:'main' };
     this.callback = this.callback.bind(this)
   }
 

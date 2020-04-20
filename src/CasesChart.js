@@ -61,6 +61,8 @@ export default class CasesChart extends React.Component {
           dataToShow[prov] = data[prov].slice(0, maxDay);
         }
 
+
+
         if (typeof casesLineChart !== "undefined") casesLineChart.destroy();
 
 
@@ -73,6 +75,8 @@ export default class CasesChart extends React.Component {
             pointBorderWidth:5,
           });
         }
+
+        const maxValue = (Math.floor(this.props.maxValue/100) * 100) + 100;
 
         casesLineChart = new Chart(myChartRef, {
             type: "line",
@@ -90,7 +94,7 @@ export default class CasesChart extends React.Component {
                 yAxes: [{
                     ticks: {
                         min: 0,
-                        max: 800
+                        max: maxValue
                     }
                 }],
          }
