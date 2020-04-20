@@ -23,7 +23,12 @@ class ProvinceLine extends React.Component {
 
         return (
             <div>
-            {this.props.province}
+            <span className="province-line-title"> {this.props.province}</span>
+            <span className="province-line-container">
+                <div className="province-line-number"> {values[values.length - 1]}</div>
+                <div className="province-line-cases">casos</div>
+            </span>
+
                 <Line
                     data={state}
                     options={
@@ -49,6 +54,7 @@ class ProvinceLine extends React.Component {
                         }
                     }
                 />
+
             </div>
         );
     }

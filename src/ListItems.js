@@ -9,6 +9,7 @@ import PeopleIcon from '@material-ui/icons/People';
 import BarChartIcon from '@material-ui/icons/BarChart';
 import LayersIcon from '@material-ui/icons/Layers';
 import AssignmentIcon from '@material-ui/icons/Assignment';
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
 class ListItems extends React.Component {
 
@@ -17,25 +18,25 @@ class ListItems extends React.Component {
       <div>
         <ListItem button onClick={() => this.props.callback('maps')}>
           <ListItemIcon>
-            <DashboardIcon />
+            <ArrowForwardIosIcon />
           </ListItemIcon>
-          <ListItemText primary="Mapas" />
+          <ListItemText primary="Casos Confirmados" />
         </ListItem>
         <ListItem button onClick={() => this.props.callback('main')}>
           <ListItemIcon>
-            <DashboardIcon />
+            <ArrowForwardIosIcon />
           </ListItemIcon>
-          <ListItemText primary="Casos por dia" />
+          <ListItemText primary="Comparar" />
         </ListItem>
         <ListItem button onClick={() => this.props.callback('table')}>
           <ListItemIcon>
-            <DashboardIcon />
+            <ArrowForwardIosIcon />
           </ListItemIcon>
-          <ListItemText primary="Datos por Provincia" />
+          <ListItemText primary="Vision General" />
         </ListItem>
         <ListItem button onClick={() => this.props.callback('million')}>
           <ListItemIcon>
-            <DashboardIcon />
+            <ArrowForwardIosIcon />
           </ListItemIcon>
           <ListItemText primary="Datos por Millon" />
         </ListItem>

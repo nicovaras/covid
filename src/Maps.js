@@ -94,12 +94,12 @@ class Maps extends React.Component {
 
     style(feature) {
         function getColor(d) {
-        return d > 500 ? '#800026' :
-               d > 200  ? '#BD0026' :
-               d > 100  ? '#E31A1C' :
-               d > 50  ? '#FC4E2A' :
-               d > 30   ? '#FD8D3C' :
-               d > 20   ? '#FEB24C' :
+        return d > 800 ? '#800026' :
+               d > 500  ? '#BD0026' :
+               d > 200  ? '#E31A1C' :
+               d > 100  ? '#FC4E2A' :
+               d > 50   ? '#FD8D3C' :
+               d > 30   ? '#FEB24C' :
                d > 10   ? '#FED976' :
                           '#FFEDA0'
         }
@@ -154,7 +154,7 @@ class Maps extends React.Component {
             <Grid container spacing = {3}>
                 {Object.keys(covid).map((province) =>(
                     <Grid key={"line-"+province} item lg={4}>
-                        <Paper style={{backgroundImage: "url(" + provImg[province] + ")"}}>
+                        <Paper style={{height:"165px",backgroundImage: "url(" + provImg[province] + ")"}}>
                                 <ProvinceLine data={covid} province={province} maxValue={maxValue}/>
                         </Paper>
                     </Grid>
