@@ -9,13 +9,13 @@ class ProvinceMapLegend extends React.Component {
   componentDidMount() {
     // get color depending on population density value
     const getColor = d => {
-        return d > 500 ? '#800026' :
-               d > 200  ? '#BD0026' :
-               d > 100  ? '#E31A1C' :
-               d > 50  ? '#FC4E2A' :
-               d > 30   ? '#FD8D3C' :
-               d > 20   ? '#FEB24C' :
-               d > 10   ? '#FED976' :
+        return d > 1000 ? '#800026' :
+               d > 800  ? '#BD0026' :
+               d > 500  ? '#E31A1C' :
+               d > 200  ? '#FC4E2A' :
+               d > 100   ? '#FD8D3C' :
+               d > 50   ? '#FEB24C' :
+               d > 20   ? '#FED976' :
                           '#FFEDA0'
     };
 
@@ -23,7 +23,7 @@ class ProvinceMapLegend extends React.Component {
 
     legend.onAdd = () => {
       const div = L.DomUtil.create("div", "info legend");
-      const grades = [0, 10, 20, 30, 50, 100, 200, 500];
+      const grades = [0, 20, 50, 100, 200, 500, 800, 1000];
       let labels = [];
       let from;
       let to;

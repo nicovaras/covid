@@ -7,6 +7,10 @@ import 'chartjs-plugin-colorschemes'
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import Tooltip from 'rc-tooltip';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 
 let casesLineChart;
 const Handle = Slider.Handle;
@@ -16,7 +20,7 @@ export default class CasesChart extends React.Component {
 
     constructor(props) {
       super(props);
-      this.state = {maxDay:50};
+      this.state = {maxDay:500};
     }
 
     componentDidMount() {
@@ -95,8 +99,14 @@ export default class CasesChart extends React.Component {
                     ticks: {
                         min: 0,
                         max: maxValue
-                    }
+                    },
+                 
                 }],
+                xAxes: [{
+                    gridLines: {
+                      display:false
+                    }   
+                }],                
          }
 
             }
@@ -106,14 +116,37 @@ export default class CasesChart extends React.Component {
     render() {
         return (
           <React.Fragment>
-            <Title> Casos Confirmados Por Dia </Title>
-            <div>
+            <Title> Casos Confirmados Por Día </Title>
+            <div >
               <canvas 
                   id="myChart"
                   ref={this.chartRef}
               />
             </div>
-            <Slider min={1} max={this.props.labels.length} defaultValue={this.props.labels.length-1} handle={this.handleSlider} onChange={(val) => this.changeSlider(val)} />
+            <div className='slider-container'>
+              <Typography id="continuous-slider" gutterBottom>
+                Dias
+              </Typography>
+              <Grid container spacing={2}>
+                <Grid item>
+                  <ChevronLeftIcon />
+                </Grid>
+                <Grid  lg className="slider-main">
+                  <Slider min={1} 
+                      max={this.props.labels.length} 
+                      defaultValue={this.props.labels.length-1} 
+                      handle={this.handleSlider} 
+                      onChange={(val) => this.changeSlider(val)} 
+                      aria-labelledby="continuous-slider"
+
+                      />
+                </Grid>
+                <Grid item>
+                  <ChevronRightIcon />
+                </Grid>
+
+              </Grid>
+            </div>
           </React.Fragment>
         )
     }

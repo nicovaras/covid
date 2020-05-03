@@ -6,15 +6,38 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import { makeStyles } from '@material-ui/core/styles';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
 import CasesMiniBar from './CasesMiniBar'
 import Title from './Title';
+import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles({
   table: {
-    minWidth: 650,
+    // maxWidth: 1000,
+  },
+ container: {
+    // maxWidth:1000,
+    maxHeight: 600,
   },
 });
+
+const StyledTableCell = withStyles((theme) => ({
+  head: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+  body: {
+    fontSize: 14,
+  },
+}))(TableCell);
+
+const StyledTableRow = withStyles((theme) => ({
+  root: {
+    '&:nth-of-type(odd)': {
+      backgroundColor: theme.palette.background.default,
+    },
+  },
+}))(TableRow);
 
 export default function FatalitiesTable(props) {
   const classes = useStyles();
@@ -53,33 +76,41 @@ export default function FatalitiesTable(props) {
 
   return (
     <div> 
-    <Title> Vision General Por Provincia </Title>
-    <TableContainer component={Paper}>
-      <Table className={classes.table} size="small" aria-label="a dense table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Provincia</TableCell>
-            <TableCell>Casos por dia</TableCell>
-            <TableCell>Total casos</TableCell>
-            <TableCell>Muertes</TableCell>
-            <TableCell> Fatalidad % </TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row.name}>
-              <TableCell component="th" scope="row">
-                {row.name}
-              </TableCell>
-              <TableCell ><CasesMiniBar data={props['data'][row['name']]}/> </TableCell>
-              <TableCell >{row.total_cases} (+{row.prev_cases})</TableCell>
-              <TableCell >{row.total_deaths} (+{row.prev_deaths})</TableCell>
-              <TableCell >{row.fatality} %</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <Title> Visión General Por Provincia </Title>
+    <Grid container>
+    <Grid item lg={1}>
+    </Grid>
+    <Grid item lg={10}>
+    <Paper>
+        <TableContainer className={classes.container}>
+          <Table stickyHeader className={classes.table} >
+            <TableHead>
+              <TableRow>
+                <StyledTableCell>Provincia</StyledTableCell>
+                <StyledTableCell>Casos por día</StyledTableCell>
+                <StyledTableCell>Total casos</StyledTableCell>
+                <StyledTableCell>Muertes</StyledTableCell>
+                <StyledTableCell> Fatalidad % </StyledTableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {rows.map((row) => (
+                <StyledTableRow key={row.name}>
+                  <TableCell component="th" scope="row">
+                    {row.name}
+                  </TableCell>
+                  <StyledTableCell ><CasesMiniBar data={props['data'][row['name']]}/> </StyledTableCell>
+                  <StyledTableCell >{row.total_cases} (+{row.prev_cases})</StyledTableCell>
+                  <StyledTableCell >{row.total_deaths} (+{row.prev_deaths})</StyledTableCell>
+                  <StyledTableCell >{row.fatality} %</StyledTableCell>
+                </StyledTableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+    </Paper>
+    </Grid>
+    </Grid>
     </div>
   );
 }

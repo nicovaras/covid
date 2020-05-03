@@ -94,13 +94,13 @@ class Maps extends React.Component {
 
     style(feature) {
         function getColor(d) {
-        return d > 800 ? '#800026' :
-               d > 500  ? '#BD0026' :
-               d > 200  ? '#E31A1C' :
-               d > 100  ? '#FC4E2A' :
-               d > 50   ? '#FD8D3C' :
-               d > 30   ? '#FEB24C' :
-               d > 10   ? '#FED976' :
+        return d > 1000 ? '#800026' :
+               d > 800  ? '#BD0026' :
+               d > 500  ? '#E31A1C' :
+               d > 200  ? '#FC4E2A' :
+               d > 100   ? '#FD8D3C' :
+               d > 50   ? '#FEB24C' :
+               d > 20   ? '#FED976' :
                           '#FFEDA0'
         }
 
@@ -194,7 +194,7 @@ class Maps extends React.Component {
         <Grid container spacing={3}>
 
             <Grid item lg={3}>
-            <Title> Casos Confirmados En El Pais </Title>
+            <Title> Casos Confirmados En El País </Title>
                 <Paper>
                   <Map ref="map" center={position} zoom={4} style={{ height : '550px', 'width': '290px'}}>
                     <TileLayer

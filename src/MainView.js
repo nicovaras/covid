@@ -7,11 +7,12 @@ import Summary from './Summary';
 import Switch from '@material-ui/core/Switch';
 import CasesChart from './CasesChart';
 import clsx from 'clsx';
+import Checkbox from '@material-ui/core/Checkbox';
 
 class MainView extends React.Component{
       constructor(props) {
         super(props);
-        this.state = {  provincesSelected: ['CABA'], maxDay: 50 };
+        this.state = {  provincesSelected: ['CABA'], maxDay: 100 };
       }
 
     selectProvince(province){
@@ -51,10 +52,10 @@ class MainView extends React.Component{
           provinces.push(
              <FormControlLabel
               key={"switch-" + province}
-              control={<Switch color='primary' 
+              control={<Checkbox color='primary' 
                                onChange={() => this.selectProvince(province)}
                                checked={this.state.provincesSelected.includes(province)} >
-                       </Switch>}
+                       </Checkbox>}
               label={province}
               />
             );

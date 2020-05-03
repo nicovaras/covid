@@ -20,25 +20,25 @@ class ListItems extends React.Component {
           <ListItemIcon>
             <ArrowForwardIosIcon />
           </ListItemIcon>
-          <ListItemText primary="Casos Confirmados" />
+          <ListItemText primary="Casos por Provincia" />
         </ListItem>
         <ListItem button onClick={() => this.props.callback('main')}>
           <ListItemIcon>
             <ArrowForwardIosIcon />
           </ListItemIcon>
-          <ListItemText primary="Comparar" />
+          <ListItemText primary="Casos por Día" />
         </ListItem>
         <ListItem button onClick={() => this.props.callback('table')}>
           <ListItemIcon>
             <ArrowForwardIosIcon />
           </ListItemIcon>
-          <ListItemText primary="Vision General" />
+          <ListItemText primary="Visión General" />
         </ListItem>
         <ListItem button onClick={() => this.props.callback('million')}>
           <ListItemIcon>
             <ArrowForwardIosIcon />
           </ListItemIcon>
-          <ListItemText primary="Datos por Millon" />
+          <ListItemText primary="Datos por Millón" />
         </ListItem>
 
       </div>  
