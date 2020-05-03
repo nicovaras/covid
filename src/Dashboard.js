@@ -131,7 +131,9 @@ class Dashboard extends React.Component {
     componentToShow:'maps' };
     this.callback = this.callback.bind(this)
   }
-
+  componentWillMount() {
+    document.title = 'COVID-19 Argentina'
+  }
   async componentDidMount() {
     try {
       let response = await fetch('https://covid.null.com.ar/');
@@ -242,9 +244,7 @@ class Dashboard extends React.Component {
             <div />
            }
 
-            <Box pt={4}>
-              <Copyright />
-            </Box>
+
           </Container>
         </main>
       </div>
@@ -254,3 +254,6 @@ class Dashboard extends React.Component {
 
 export default withStyles(styles)(Dashboard);
 
+            // <Box pt={4}>
+            //   <Copyright />
+            // </Box>
