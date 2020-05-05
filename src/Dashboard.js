@@ -81,6 +81,7 @@ return {
   },
   title: {
     flexGrow: 1,
+    width:230
   },
   drawerPaper: {
     position: 'relative',
@@ -203,7 +204,7 @@ class Dashboard extends React.Component {
             >
               <MenuIcon />
             </IconButton>
-            <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
+            <Typography component="h1" variant="h6" color="inherit"  className={classes.title}>
               COVID-19 Argentina
             </Typography>
             <Summary lastDay={covid['totals'][days[days.length - 1]]} day={days[days.length - 1]}/>

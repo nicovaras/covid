@@ -30,6 +30,7 @@ import santiagoImg from './img/SantiagodelEstero.png';
 import tierraImg from './img/TierradelFuego.png';
 import tucumanImg from './img/Tucuman.png';
 import Title from './Title';
+import Hidden from '@material-ui/core/Hidden';
 
 let provinciasGeo = require('./provincias.json');
 
@@ -150,7 +151,7 @@ class Maps extends React.Component {
     return (
 
         <Grid item lg={9} >
-        <Title> Casos Confirmados Por Provincia </Title>
+        <Title> Confirmados Por Provincia </Title>
             <Grid container spacing = {3}>
                 {Object.keys(covid).map((province) =>(
                     <Grid key={"line-"+province} item lg={4}>
@@ -187,6 +188,7 @@ class Maps extends React.Component {
 
     const position = [-40, -64];
     const mapboxAccessToken = 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw';
+    var screenWidth = window.innerWidth;
 
     return (
         <React.Fragment>
@@ -194,9 +196,10 @@ class Maps extends React.Component {
         <Grid container spacing={3}>
 
             <Grid item lg={3}>
-            <Title> Casos Confirmados En El País </Title>
+            <Title> Confirmados En El País</Title>
                 <Paper>
-                  <Map ref="map" center={position} zoom={4} style={{ height : '550px', 'width': '290px'}}>
+
+                  <Map ref="map" center={position} zoom={4} style={{ height : '550px'}}>
                     <TileLayer
                       id= 'mapbox/light-v9'
                       attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
