@@ -34,7 +34,7 @@ class DoubleDays extends React.Component {
         const datasets = [{
            data: doubles, 
            fill:false,
-           pointBorderWidth:5
+           pointBorderWidth:0
         }];
 
         const data = {

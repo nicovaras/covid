@@ -12,6 +12,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Title from './Title';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
+import Hidden from '@material-ui/core/Hidden';
 
 
 const StyledTableCell = withStyles((theme) => ({
@@ -75,7 +76,7 @@ class PerMillion extends React.Component {
             datasets.push({data: data.slice(-30), 
                            label: countryMap[country],
                            fill:false,
-                           pointBorderWidth:5,})
+                           pointBorderWidth:0,})
             const lastRow = countries[country][countries[country].length-1];
             rows.push({
                 name: countryMap[country],
@@ -120,25 +121,32 @@ class PerMillion extends React.Component {
 
             <Grid container spacing={3}>
 
-                <Grid item lg={12}>
-
-
-                    <Paper className="paper-million">
-                        <Grid container lg={12}>
-                            <Grid item lg={7}>
+                <Grid item xs={12} lg={12}>
+                    <Paper >
+                        <Grid container xs={12} lg={12}>
+                            <Grid item xs={12} lg={7}>
                                 <Title> Datos Por Millón De Habitantes</Title>
                             </Grid>
-                            <Grid item lg={5}>
+                            <Hidden smDown >
+                                <Grid item lg={5}>
+                                    <Button variant="outlined" onClick={() => this.setState({selected:'Confirmed'})}> Confirmados </Button>
+                                    <Button variant="outlined" onClick={() => this.setState({selected:'Deaths'})}> Muertes </Button>
+                                    <Button variant="outlined" onClick={() => this.setState({selected:'Recovered'})}> Recuperados </Button>
+                                </Grid>
+                            </Hidden>
+                        </Grid>
+                        <Grid container xs={12} lg={12}>
+                            <Grid item xs={11} lg={11}>
+                                <Line data={data} options={options} height={380} width={800}/>
+                            </Grid>
+                        </Grid>
+                        <Hidden mdUp >
+                            <Grid item xs={12} lg={5}>
                                 <Button variant="outlined" onClick={() => this.setState({selected:'Confirmed'})}> Confirmados </Button>
                                 <Button variant="outlined" onClick={() => this.setState({selected:'Deaths'})}> Muertes </Button>
                                 <Button variant="outlined" onClick={() => this.setState({selected:'Recovered'})}> Recuperados </Button>
                             </Grid>
-                        </Grid>
-                        <Grid container lg={12}>
-                            <Grid item lg={11}>
-                                <Line data={data} options={options} height={380} width={800}/>
-                            </Grid>
-                        </Grid>
+                        </Hidden>                        
                         
                     </Paper>
                 </Grid>
@@ -151,7 +159,9 @@ class PerMillion extends React.Component {
                         <TableHead>
                           <TableRow>
                             <StyledTableCell>País</StyledTableCell>
-                            <StyledTableCell>Fecha</StyledTableCell>
+                            <Hidden smDown >
+                                <StyledTableCell>Fecha</StyledTableCell>
+                            </Hidden>
                             <StyledTableCell>Población</StyledTableCell>
                             <StyledTableCell>Casos por millón</StyledTableCell>
                             <StyledTableCell>Muertes por millón</StyledTableCell>
@@ -164,7 +174,9 @@ class PerMillion extends React.Component {
                               <TableCell component="th" scope="row">
                                 {row.name}
                               </TableCell>
-                              <TableCell >{row.date} </TableCell>
+                              <Hidden smDown >
+                                <TableCell >{row.date} </TableCell>
+                              </Hidden>
                               <TableCell >{row.population} </TableCell>
                               <TableCell >{row.cases}</TableCell>
                               <TableCell >{row.deaths}</TableCell>

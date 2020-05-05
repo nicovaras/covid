@@ -25,7 +25,7 @@ class MainView extends React.Component{
 
     render(){
         const classes = this.props.classes;
-        const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+        const fixedHeightPaper = clsx(classes.paper);
         const covid = this.props.covid;
 
         let days = [];

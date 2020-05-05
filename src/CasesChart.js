@@ -76,7 +76,7 @@ export default class CasesChart extends React.Component {
             label: prov,
             data: dataToShow[prov],
             fill:false,
-            pointBorderWidth:5,
+            pointBorderWidth:0,
           });
         }
 
@@ -131,7 +131,7 @@ export default class CasesChart extends React.Component {
                 <Grid item>
                   <ChevronLeftIcon />
                 </Grid>
-                <Grid  lg className="slider-main">
+                <Grid xs sm lg className="slider-main">
                   <Slider min={1} 
                       max={this.props.labels.length} 
                       defaultValue={this.props.labels.length-1} 

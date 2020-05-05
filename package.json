@@ -25,6 +25,7 @@
     "react-ga": "^2.7.0",
     "react-leaflet": "^2.6.3",
     "react-plotly.js": "^2.4.0",
+    "react-responsive": "^8.0.3",
     "react-scripts": "3.4.1",
     "recharts": "^1.8.5"
   },

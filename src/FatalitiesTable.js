@@ -10,6 +10,7 @@ import { withStyles, makeStyles } from '@material-ui/core/styles';
 import CasesMiniBar from './CasesMiniBar'
 import Title from './Title';
 import Grid from '@material-ui/core/Grid';
+import Hidden from '@material-ui/core/Hidden';
 
 const useStyles = makeStyles({
   table: {
@@ -87,7 +88,9 @@ export default function FatalitiesTable(props) {
             <TableHead>
               <TableRow>
                 <StyledTableCell>Provincia</StyledTableCell>
-                <StyledTableCell>Casos por día</StyledTableCell>
+                <Hidden smDown >
+                    <StyledTableCell>Casos por día</StyledTableCell>
+                </Hidden>
                 <StyledTableCell>Total casos</StyledTableCell>
                 <StyledTableCell>Muertes</StyledTableCell>
                 <StyledTableCell> Fatalidad % </StyledTableCell>
@@ -99,7 +102,9 @@ export default function FatalitiesTable(props) {
                   <TableCell component="th" scope="row">
                     {row.name}
                   </TableCell>
-                  <StyledTableCell ><CasesMiniBar data={props['data'][row['name']]}/> </StyledTableCell>
+                  <Hidden smDown >
+                    <StyledTableCell ><CasesMiniBar data={props['data'][row['name']]}/> </StyledTableCell>
+                  </Hidden>
                   <StyledTableCell >{row.total_cases} (+{row.prev_cases})</StyledTableCell>
                   <StyledTableCell >{row.total_deaths} (+{row.prev_deaths})</StyledTableCell>
                   <StyledTableCell >{row.fatality} %</StyledTableCell>

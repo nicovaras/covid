@@ -29,6 +29,8 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormGroup from '@material-ui/core/FormGroup';
 import Summary from './Summary';
 import DoubleDays from './DoubleDays';
+import MediaQuery from 'react-responsive'
+import Hidden from '@material-ui/core/Hidden';
 
 function Copyright() {
   return (
@@ -59,21 +61,7 @@ return {
     justifyContent: 'flex-end',
     padding: '0 8px',
   },
-  appBar: {
-    zIndex: theme.zIndex.drawer + 1,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-  },
-  appBarShift: {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
+
   menuButton: {
     marginRight: 36,
   },
@@ -82,28 +70,45 @@ return {
   },
   title: {
     flexGrow: 1,
-    width:230
+    width:350,
+    marginLeft:drawerWidth
   },
-  drawerPaper: {
-    position: 'relative',
-    whiteSpace: 'nowrap',
-    width: drawerWidth,
-    transition: theme.transitions.create('width', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-  drawerPaperClose: {
-    overflowX: 'hidden',
-    transition: theme.transitions.create('width', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    width: theme.spacing(7),
-    [theme.breakpoints.up('sm')]: {
-      width: theme.spacing(9),
+  // drawerPaper: {
+  //   position: 'relative',
+  //   whiteSpace: 'nowrap',
+  //   width: drawerWidth,
+  //   transition: theme.transitions.create('width', {
+  //     easing: theme.transitions.easing.sharp,
+  //     duration: theme.transitions.duration.enteringScreen,
+  //   }),
+  // },
+  // drawerPaperClose: {
+  //   overflowX: 'hidden',
+  //   transition: theme.transitions.create('width', {
+  //     easing: theme.transitions.easing.sharp,
+  //     duration: theme.transitions.duration.leavingScreen,
+  //   }),
+  //   width: theme.spacing(7),
+  //   [theme.breakpoints.up('sm')]: {
+  //     width: theme.spacing(9),
+  //   },
+  // },
+  drawer: {
+    [theme.breakpoints.up('md')]: {
+      width: drawerWidth,
+      flexShrink: 0,
     },
   },
+  menuButton: {
+    marginRight: theme.spacing(2),
+    [theme.breakpoints.up('md')]: {
+      display: 'none',
+    },
+  },  
+  toolbar: theme.mixins.toolbar,
+  drawerPaper: {
+    width: drawerWidth,
+  },  
   appBarSpacer: theme.mixins.toolbar,
   content: {
     flexGrow: 1,
@@ -126,12 +131,14 @@ return {
 }};
 
 
+
 class Dashboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = { covid: [], countries: {}, isLoading: true, error: null, 
-    componentToShow:'maps' };
+    componentToShow:'maps', mobileOpen:false };
     this.callback = this.callback.bind(this)
+    this.handleDrawerToggle = this.handleDrawerToggle.bind(this)
   }
   componentWillMount() {
     document.title = 'COVID-19 Argentina'
@@ -179,9 +186,15 @@ class Dashboard extends React.Component {
     this.setState({componentToShow: component});
   }
     
+  handleDrawerToggle() {
+    this.setState({mobileOpen: !this.state.mobileOpen});
+  }
+
   render(){
+
     const { classes } = this.props;
     const covid = this.state.covid;
+
 
     if(covid.length === 0){
       return null;
@@ -191,6 +204,15 @@ class Dashboard extends React.Component {
     for(let day in covid['totals']){
        days.push(day);
     }
+    const container = window !== undefined ? () => window.document.body : undefined;
+    
+    const drawer = (
+      <div>
+          <div className="drawer-top"> </div>
+          <Divider />
+          <List><ListItems callback={this.callback} /></List>
+      </div>
+    );
 
     return (
       <div className={classes.root}>
@@ -198,36 +220,61 @@ class Dashboard extends React.Component {
         <AppBar position="absolute" className={clsx(classes.appBar, classes.appBarShift)}>
           <Toolbar className={classes.toolbar}>
             <IconButton
-              edge="start"
               color="inherit"
               aria-label="open drawer"
-              className={clsx(classes.menuButton, classes.menuButtonHidden)}
+              edge="start"
+              onClick={this.handleDrawerToggle}
+              className={classes.menuButton}
             >
               <MenuIcon />
             </IconButton>
-            <Typography component="h1" variant="h6" color="inherit"  className={classes.title}>
-              COVID-19 Argentina
-            </Typography>
-            <Summary lastDay={covid['totals'][days[days.length - 1]]} day={days[days.length - 1]}/>
+            <Hidden mdUp >
+              <Typography component="h1" variant="h6" color="inherit">
+                COVID-19 Argentina
+              </Typography>
+            </Hidden>
+
+            <Hidden smDown>
+              <Typography component="h1" variant="h6" color="inherit"  className={classes.title}>
+                COVID-19 Argentina
+              </Typography>
+              <Summary lastDay={covid['totals'][days[days.length - 1]]} day={days[days.length - 1]}/>
+            </Hidden>
 
           </Toolbar>
         </AppBar>
-        <Drawer
-          variant="permanent"
-          classes={{
-            paper: clsx(classes.drawerPaper),
-          }}
-          open={true}
-        >
-          <div className="drawer-top">
-          </div>
-          <Divider />
-          <List><ListItems callback={this.callback} /></List>
-        </Drawer>
+        
+        <nav className={classes.drawer} aria-label="mailbox folders">
 
+        <Hidden mdUp >
+          <Drawer
+            container={container}
+            variant="temporary"
+            open={this.state.mobileOpen}
+            onClose={this.handleDrawerToggle}
+            classes={{
+              paper: classes.drawerPaper,
+            }}
+     
+          >
+           {drawer}
+          </Drawer>
+        </Hidden>
+       
+        <Hidden smDown >
+          <Drawer
+            classes={{
+              paper: classes.drawerPaper,
+            }}
+            variant="permanent"
+            open
+          >
+           {drawer}
+          </Drawer>
+        </Hidden>
+      </nav>
 
-
-        <main className={classes.content}>
+       <main className={classes.content}>
           <div className={classes.appBarSpacer} />
           <Container maxWidth="lg" className={classes.container}>
            {
@@ -251,7 +298,7 @@ class Dashboard extends React.Component {
 
 
           </Container>
-        </main>
+        </main>            
       </div>
     );
   }
@@ -262,3 +309,22 @@ export default withStyles(styles)(Dashboard);
             // <Box pt={4}>
             //   <Copyright />
             // </Box>
+
+
+
+        
+        // <MediaQuery maxDeviceWidth={1224}>
+        //   <Drawer variant="permanent"  open={true} >
+        //     <div className="drawer-top"> </div>
+        //     <List><ListItems callback={this.callback} /></List>
+        //   </Drawer>
+        // </MediaQuery>
+
+        // <MediaQuery minDeviceWidth={1224}>
+        //   <Drawer variant="permanent"classes={{paper: clsx(classes.drawerPaper), }} open={true} >
+        //   <div className="drawer-top"> </div>
+        //   <Divider />
+        //   <List><ListItems callback={this.callback} /></List>
+        // </Drawer>
+
+        // </MediaQuery>
