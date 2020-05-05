@@ -80,6 +80,7 @@ class PerMillion extends React.Component {
             rows.push({
                 name: countryMap[country],
                 date: lastRow['Date'].slice(0,10),
+                population:pops[country],
                 cases: this.toMillion(lastRow, pops[country], 'Confirmed'),   
                 deaths: this.toMillion(lastRow, pops[country], 'Deaths'),   
                 recovered: this.toMillion(lastRow, pops[country], 'Recovered'),   
@@ -151,6 +152,7 @@ class PerMillion extends React.Component {
                           <TableRow>
                             <StyledTableCell>País</StyledTableCell>
                             <StyledTableCell>Fecha</StyledTableCell>
+                            <StyledTableCell>Población</StyledTableCell>
                             <StyledTableCell>Casos por millón</StyledTableCell>
                             <StyledTableCell>Muertes por millón</StyledTableCell>
                             <StyledTableCell>Recuperados por millón </StyledTableCell>
@@ -163,6 +165,7 @@ class PerMillion extends React.Component {
                                 {row.name}
                               </TableCell>
                               <TableCell >{row.date} </TableCell>
+                              <TableCell >{row.population} </TableCell>
                               <TableCell >{row.cases}</TableCell>
                               <TableCell >{row.deaths}</TableCell>
                               <TableCell >{row.recovered}</TableCell>
@@ -173,6 +176,9 @@ class PerMillion extends React.Component {
                     </TableContainer>
                 </Grid>
             </Grid>
+            <div className="million-note">
+                Nota: sólo paises limítrofes
+            </div>
             </React.Fragment>
         );
 

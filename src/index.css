@@ -123,3 +123,8 @@ ol, ul {
 .drawer-top{
   height:63px;
 }
+
+.million-note{
+  font-weight:bold;
+  margin-top:10px;
+}
