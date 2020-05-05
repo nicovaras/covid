@@ -99,6 +99,8 @@ class PerMillion extends React.Component {
         }
 
         const options = {
+            maintainAspectRatio: false,
+            responsive: true,
             elements: {line: {tension: 0}},
             animation:{duration:0},            
             scales: {
@@ -117,19 +119,32 @@ class PerMillion extends React.Component {
 
             <Grid container spacing={3}>
 
-                <Grid item xs={12} md={8} lg={10}>
+                <Grid item lg={12}>
+
+
                     <Paper className="paper-million">
-                    <Title> Datos Por Millón De Habitantes</Title>
-                        <Line data={data} options={options}/>
-                        <br />
-                        <Button variant="outlined" onClick={() => this.setState({selected:'Confirmed'})}> Confirmados </Button>
-                        <Button variant="outlined" onClick={() => this.setState({selected:'Deaths'})}> Muertes </Button>
-                        <Button variant="outlined" onClick={() => this.setState({selected:'Recovered'})}> Recuperados </Button>
+                        <Grid container lg={12}>
+                            <Grid item lg={7}>
+                                <Title> Datos Por Millón De Habitantes</Title>
+                            </Grid>
+                            <Grid item lg={5}>
+                                <Button variant="outlined" onClick={() => this.setState({selected:'Confirmed'})}> Confirmados </Button>
+                                <Button variant="outlined" onClick={() => this.setState({selected:'Deaths'})}> Muertes </Button>
+                                <Button variant="outlined" onClick={() => this.setState({selected:'Recovered'})}> Recuperados </Button>
+                            </Grid>
+                        </Grid>
+                        <Grid container lg={12}>
+                            <Grid item lg={11}>
+                                <Line data={data} options={options} height={380} width={800}/>
+                            </Grid>
+                        </Grid>
+                        
                     </Paper>
                 </Grid>
             </Grid>
             <Grid container spacing={3}>
-                <Grid item xs={12} md={8} lg={10}>
+                <Grid item lg={1} />
+                <Grid item lg={10}>
                     <TableContainer component={Paper}>
                       <Table size="small">
                         <TableHead>

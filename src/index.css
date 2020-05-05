@@ -113,10 +113,10 @@ ol, ul {
 }
 
 .paper-million {
-  height: 630px;
+  height: 450px;
   padding: 20px;
   display: 'flex';
-  overflow: 'auto';
+  overflow: 'hidden';
   flexDirection: 'column';
 }
 

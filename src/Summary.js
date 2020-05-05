@@ -11,7 +11,7 @@ class Summary extends React.Component {
     return (
       <Container className="header-container" > 
         <Row className="justify-content-lg-center">
-        <Col lg='6'></Col>
+        <Col lg='5'></Col>
           <Col lg="auto" className='header-part'>
             <div>
               <span className='header-title'>Casos </span>  
