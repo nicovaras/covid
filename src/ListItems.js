@@ -40,7 +40,12 @@ class ListItems extends React.Component {
           </ListItemIcon>
           <ListItemText primary="Datos por Millón" />
         </ListItem>
-
+        <ListItem button onClick={() => this.props.callback('double')}>
+          <ListItemIcon>
+            <ArrowForwardIosIcon />
+          </ListItemIcon>
+          <ListItemText primary="Días hasta duplicar" />
+        </ListItem>
       </div>  
     );
   }

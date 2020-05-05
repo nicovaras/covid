@@ -124,7 +124,15 @@ ol, ul {
   height:63px;
 }
 
-.million-note{
+.note{
   font-weight:bold;
   margin-top:10px;
+}
+
+.paper-double{
+    padding: 20px;
+  display: 'flex';
+  flexDirection: 'column';
+  overflow: 'hidden';
+
 }

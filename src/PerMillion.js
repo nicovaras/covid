@@ -176,7 +176,7 @@ class PerMillion extends React.Component {
                     </TableContainer>
                 </Grid>
             </Grid>
-            <div className="million-note">
+            <div className="note">
                 Nota: sólo paises limítrofes
             </div>
             </React.Fragment>

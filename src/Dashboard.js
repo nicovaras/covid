@@ -28,6 +28,7 @@ import Button from '@material-ui/core/Button';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormGroup from '@material-ui/core/FormGroup';
 import Summary from './Summary';
+import DoubleDays from './DoubleDays';
 
 function Copyright() {
   return (
@@ -129,7 +130,7 @@ class Dashboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = { covid: [], countries: {}, isLoading: true, error: null, 
-    componentToShow:'million' };
+    componentToShow:'maps' };
     this.callback = this.callback.bind(this)
   }
   componentWillMount() {
@@ -241,6 +242,9 @@ class Dashboard extends React.Component {
             :
             this.state.componentToShow === 'million' ?
             <PerMillion data={this.state.countries}/>
+            :
+            this.state.componentToShow === 'double' ?
+            <DoubleDays data={covid['totals']}/>
             :
             <div />
            }
