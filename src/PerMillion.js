@@ -177,7 +177,7 @@ class PerMillion extends React.Component {
                               <Hidden smDown >
                                 <TableCell >{row.date} </TableCell>
                               </Hidden>
-                              <TableCell >{row.population} </TableCell>
+                              <TableCell >{row.population.toLocaleString()} </TableCell>
                               <TableCell >{row.cases}</TableCell>
                               <TableCell >{row.deaths}</TableCell>
                               <TableCell >{row.recovered}</TableCell>

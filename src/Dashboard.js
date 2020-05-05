@@ -73,26 +73,6 @@ return {
     width:350,
     marginLeft:drawerWidth
   },
-  // drawerPaper: {
-  //   position: 'relative',
-  //   whiteSpace: 'nowrap',
-  //   width: drawerWidth,
-  //   transition: theme.transitions.create('width', {
-  //     easing: theme.transitions.easing.sharp,
-  //     duration: theme.transitions.duration.enteringScreen,
-  //   }),
-  // },
-  // drawerPaperClose: {
-  //   overflowX: 'hidden',
-  //   transition: theme.transitions.create('width', {
-  //     easing: theme.transitions.easing.sharp,
-  //     duration: theme.transitions.duration.leavingScreen,
-  //   }),
-  //   width: theme.spacing(7),
-  //   [theme.breakpoints.up('sm')]: {
-  //     width: theme.spacing(9),
-  //   },
-  // },
   drawer: {
     [theme.breakpoints.up('md')]: {
       width: drawerWidth,
@@ -184,6 +164,7 @@ class Dashboard extends React.Component {
 
   callback(component) {
     this.setState({componentToShow: component});
+    this.handleDrawerToggle()
   }
     
   handleDrawerToggle() {
@@ -309,22 +290,3 @@ export default withStyles(styles)(Dashboard);
             // <Box pt={4}>
             //   <Copyright />
             // </Box>
-
-
-
-        
-        // <MediaQuery maxDeviceWidth={1224}>
-        //   <Drawer variant="permanent"  open={true} >
-        //     <div className="drawer-top"> </div>
-        //     <List><ListItems callback={this.callback} /></List>
-        //   </Drawer>
-        // </MediaQuery>
-
-        // <MediaQuery minDeviceWidth={1224}>
-        //   <Drawer variant="permanent"classes={{paper: clsx(classes.drawerPaper), }} open={true} >
-        //   <div className="drawer-top"> </div>
-        //   <Divider />
-        //   <List><ListItems callback={this.callback} /></List>
-        // </Drawer>
-
-        // </MediaQuery>
