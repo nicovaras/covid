@@ -22,7 +22,7 @@ def covidJson():
         tds = tr.find_all('td')
         texts = [td.text.strip() for td in tds]
         texts = [t.replace("—", "0") for t in texts]
-        texts= [re.sub(r'\[.*', '', t) for t in texts]
+        texts= [re.sub(r'\[.*\]', '', t) for t in texts]
         texts= [(t if t else '0') for t in texts]
         
         try:
