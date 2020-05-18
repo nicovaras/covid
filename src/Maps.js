@@ -147,16 +147,24 @@ class Maps extends React.Component {
 
     const maxValue = covid['CABA'][lastDay]['total_cases'];
 
+    let provByCases=[];
+    for(let key in covid){
+        provByCases.push({'prov': key, 'cases': covid[key][lastDay]['total_cases']});
+    }
+    
+    provByCases.sort((a, b) => (a.cases < b.cases) ? 1 : -1)
+
 
     return (
 
         <Grid item lg={9} >
         <Title> Confirmados Por Provincia </Title>
             <Grid container spacing = {3}>
-                {Object.keys(covid).map((province) =>(
-                    <Grid key={"line-"+province} item lg={4}>
-                        <Paper style={{height:"165px",backgroundImage: "url(" + provImg[province] + ")"}}>
-                                <ProvinceLine data={covid} province={province} maxValue={maxValue}/>
+                {Object.keys(provByCases).map((i) =>(
+
+                    <Grid key={"line-"+provByCases[i].prov} item lg={4}>
+                        <Paper style={{height:"165px",backgroundImage: "url(" + provImg[provByCases[i].prov] + ")"}}>
+                                <ProvinceLine data={covid} province={provByCases[i].prov} maxValue={maxValue}/>
                         </Paper>
                     </Grid>
                 ))}

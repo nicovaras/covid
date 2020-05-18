@@ -181,10 +181,21 @@ class Dashboard extends React.Component {
       return null;
     }
 
+
+
     let days = [];
     for(let day in covid['totals']){
        days.push(day);
     }
+
+    if(covid['data']['CABA'][days[days.length - 1]] && covid['data']['CABA'][days[days.length - 1]]['total_cases'] === 0){
+      for(let key in covid['data']){
+        delete covid['data'][key][days[days.length - 1]];
+      }
+      days.pop();
+    }
+
+
     const container = window !== undefined ? () => window.document.body : undefined;
     
     const drawer = (
