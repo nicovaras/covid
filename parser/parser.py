@@ -14,9 +14,9 @@ from flask_cors import CORS, cross_origin
 
 def covidJson():
     s = requests.get('https://en.wikipedia.org/wiki/Template:2019%E2%80%9320_coronavirus_pandemic_data/Argentina_medical_cases').text
-
+    import pudb;pu.db
     soup = BeautifulSoup(s, 'html.parser')
-    table = soup.find_all('table')[0]
+    table = soup.find_all('table')[1]
     data = []
     for tr in table.find_all('tr'):
         tds = tr.find_all('td')
@@ -32,6 +32,8 @@ def covidJson():
     data = data[3:-1]
     cols = ["date","CABA","Buenos Aires","Catamarca","Chaco", "Chubut","Cordoba","Corrientes","Entre Rios","Formosa","Jujuy", "La Pampa", "La Rioja", "Mendoza", "Misiones", "Neuquen", "Rio Negro", "Salta","San Juan", "San Luis", "Santa Cruz", "Santa Fe", "Santiago del Estero", "Tierra del Fuego", "Tucuman", 'total_cases', 'total_deaths', 'new_cases', 'new_deaths']
     df = pd.DataFrame(data, columns = cols).iloc[:-2]
+
+    df = df[df['date'] != 'BA-C[c]'][df['date'] != 'Date'][df['date'] != 'Total'][df['date'] != '12 Mar[e]']
 
     def format_date(date):
         year = " 2020"
@@ -58,7 +60,7 @@ def covidJson():
                 val = int(re.sub(r'\(.*', '', row[p]))
                 deaths = int(row[p].split('(')[1][:-1])
             else:
-                val = int(row[p])
+                val = int(row[p]) if row[p] != 'N/A' else 0
                 deaths = 0
 
             data[p][idx] =({'total_cases': val, 
