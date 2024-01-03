@@ -15,7 +15,7 @@
     "gh-pages": "^2.2.0",
     "leaflet": "^1.6.0",
     "nan": "^2.14.0",
-    "plotly.js": "^1.53.0",
+    "plotly.js": "^2.25.2",
     "rc-slider": "^9.2.4",
     "react": "^16.13.1",
     "react-bootstrap": "^1.0.0",
